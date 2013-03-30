@@ -1,0 +1,23 @@
+.cardHolder{
+
+}
+.cardValue{
+    color:red;
+    margin-left:5px;
+}
+.cardName{
+    margin-left:5px;
+}
+.card{
+    margin-top:5px;
+}
+.button{
+    margin-top:15px;
+    height:42px;
+    background-color:#ae1202;
+    color:#fff;
+    border:2px solid #222;
+}
+
+
+
