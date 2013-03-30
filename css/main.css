@@ -1,22 +1,48 @@
-.cardHolder{
+*{
+	font-family: 'Noto Sans', sans-serif;
+	margin:0px;
+	padding:0x/;
+}
 
+#table{
+	max-width:800px;
+	height:600px;
+}
+
+.cardHolder{
+	width:200px;
+	margin-top:12px;
+	float:left;
 }
 .cardValue{
     color:red;
     margin-left:5px;
+    clear:both;
+    text-align:center;
 }
 .cardName{
     margin-left:5px;
+    text-align:center;
 }
 .card{
     margin-top:5px;
+   	width:80px;
+   	margin-left:auto;
+   	margin-right:auto;
+   	margin-left:58px;
 }
 .button{
     margin-top:15px;
     height:42px;
+    float:right;
     background-color:#ae1202;
+    margin:5px 5px 5px 0px;
     color:#fff;
-    border:2px solid #222;
+    border:2px solid #000;
+}
+
+.button:active{
+	background-color:#0c6;
 }
 
 
