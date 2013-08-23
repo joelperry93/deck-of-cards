@@ -11,11 +11,11 @@
         
         <script>
             function Deck(){
-                Deck.suits = ['Clubs', 'Spades', 'Hearts', 'Diamonds']; // In order with image folder
+                Deck.suits    = ['Clubs', 'Spades', 'Hearts', 'Diamonds']; // In order with image folder
                 Deck.imageURL = "img/cards/face-down.png";
 
                 this.cards = [];
-                this.out = [];
+                this.out   = [];
 
                 var cardImagesSuitStartingPoints = [1,49,45,41,37,33,29,25,21,17,13,9,5] /// Where rank cards start in the images folder. 1.png = Aces, 49.png = 2s.. etc.
 
@@ -30,23 +30,25 @@
                 var divTag, nameTag, valueTag, cards = [];
 
                 for(var i = 0; i < numberOfCards; i++){
+                    if (this.cards.length == 0) break;
+
                     cards[i] = this.cards.pop();
 
-                    divTag = document.createElement('div');
+                    divTag   = document.createElement('div');
                     imageTag = document.createElement('img');
-                    nameTag = document.createElement('div');
+                    nameTag  = document.createElement('div');
                     valueTag = document.createElement('div');
 
-                    imageTag.src = cards[i].imageURL;
-                    nameTag.innerHTML = cards[i].rank + " of " + cards[i].suit;
+                    imageTag.src       = cards[i].imageURL;
+                    nameTag.innerHTML  = cards[i].rank + " of " + cards[i].suit;
                     valueTag.innerHTML = "(" + cards[i].value + ")";
 
                     $(imageTag).addClass('card');
-                    $(nameTag).addClass('cardName');
+                    $(nameTag ).addClass('cardName');
                     $(valueTag).addClass('cardValue');
-                    $(divTag).addClass('cardHolder');
+                    $(divTag  ).addClass('cardHolder');
 
-                    $(divTag).append(imageTag,nameTag,valueTag);
+                    $(divTag  ).append(imageTag,nameTag,valueTag);
                     $('#table').append(divTag);
 
                     this.out.push(cards[i]);
@@ -56,21 +58,25 @@
             }
 
             Deck.prototype.shuffle = function () {
-              var i = this.cards.length, j, tempi, tempj;
+                var i = this.cards.length, j, tempi, tempj;
 
-              if ( i == 0 ) return false;
+                if ( i == 0 ) return false;
 
-              while ( --i ) {
-                 j = Math.floor( Math.random() * ( i + 1 ) );
+                while ( --i ) {
+                   j = Math.floor( Math.random() * ( i + 1 ) );
 
-                 tempi = this.cards[i];
-                 tempj = this.cards[j];
+                   tempi = this.cards[i];
+                   tempj = this.cards[j];
 
-                 this.cards[i] = tempj;
-                 this.cards[j] = tempi;
-               }
+                   this.cards[i] = tempj;
+                   this.cards[j] = tempi;
+                 }
 
-               return this;
+                 return this;
+            }
+
+            Deck.prototype.reverse = function(){
+                  this.cards.reverse();
             }
 
             Deck.prototype.addToBottom = function(card){
@@ -79,27 +85,27 @@
             }
 
             function Card(suit, number, imagesStartPoint){
-                this.suit = suit;
+                this.suit     = suit;
                 this.imageURL = "img/cards/" + (imagesStartPoint + Deck.suits.indexOf(suit)) + ".png";
 
                 switch(number){
-                    case 1 : this.rank = "Ace";
+                    case 1 : this.rank  = "Ace";
                              this.value = 11;
                              break;
 
-                    case 11: this.rank = "Jack";
+                    case 11: this.rank  = "Jack";
                              this.value = 10;
                              break;
 
-                    case 12: this.rank = "Queen";
+                    case 12: this.rank  = "Queen";
                              this.value = 10;
                              break;
 
-                    case 13: this.rank = "King";
+                    case 13: this.rank  = "King";
                              this.value = 10;
                              break;
 
-                    default: this.rank = number;
+                    default: this.rank  = number;
                              this.value = number;
                 }
             }
@@ -110,6 +116,7 @@
 
     </head>
     <body>
+        <input type="button" class="button" value="Reverse" onclick="deck.reverse();"/>
         <input type="button" class="button" value="Shuffle" onclick="deck.shuffle();"/>
         <input type="button" class="button" value="Draw card" onclick="deck.draw(1);"/>
         
