@@ -1,0 +1,22 @@
+.cardHolder{
+	width:200px;
+	margin-top:12px;
+	float:left;
+}
+.cardValue{
+    color:red;
+    margin-left:5px;
+    clear:both;
+    text-align:center;
+}
+.cardName{
+    margin-left:5px;
+    text-align:center;
+}
+.card{
+    margin-top:5px;
+   	width:80px;
+   	margin-left:auto;
+   	margin-right:auto;
+   	margin-left:60px;
+}
