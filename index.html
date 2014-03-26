@@ -6,122 +6,16 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="shortcut icon" href="img/favicon.ico" />
         <link href='http://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
-
-        <script src="js/jquery.min.js"></script>
-        
-        <script>
-            function Deck(){
-                Deck.suits    = ['Clubs', 'Spades', 'Hearts', 'Diamonds']; // In order with image folder
-                Deck.imageURL = "img/cards/face-down.png";
-
-                this.cards = [];
-                this.out   = [];
-
-                var cardImagesSuitStartingPoints = [1,49,45,41,37,33,29,25,21,17,13,9,5] /// Where rank cards start in the images folder. 1.png = Aces, 49.png = 2s.. etc.
-
-                for (var i = 1; i <= 13; i++){ // Make 52 cards 
-                    for(suit in Deck.suits){
-                       this.cards.push(new Card(Deck.suits[suit], i, cardImagesSuitStartingPoints[i-1]));
-                    }
-                }
-            }
-
-            Deck.prototype.draw = function(numberOfCards){
-                var divTag, nameTag, valueTag, cards = [];
-
-                for(var i = 0; i < numberOfCards; i++){
-                    if (this.cards.length == 0) break;
-
-                    cards[i] = this.cards.pop();
-
-                    divTag   = document.createElement('div');
-                    imageTag = document.createElement('img');
-                    nameTag  = document.createElement('div');
-                    valueTag = document.createElement('div');
-
-                    imageTag.src       = cards[i].imageURL;
-                    nameTag.innerHTML  = cards[i].rank + " of " + cards[i].suit;
-                    valueTag.innerHTML = "(" + cards[i].value + ")";
-
-                    $(imageTag).addClass('card');
-                    $(nameTag ).addClass('cardName');
-                    $(valueTag).addClass('cardValue');
-                    $(divTag  ).addClass('cardHolder');
-
-                    $(divTag  ).append(imageTag,nameTag,valueTag);
-                    $('#table').append(divTag);
-
-                    this.out.push(cards[i]);
-                }
-
-                return cards;
-            }
-
-            Deck.prototype.shuffle = function () {
-                var i = this.cards.length, j, tempi, tempj;
-
-                if ( i == 0 ) return false;
-
-                while ( --i ) {
-                   j = Math.floor( Math.random() * ( i + 1 ) );
-
-                   tempi = this.cards[i];
-                   tempj = this.cards[j];
-
-                   this.cards[i] = tempj;
-                   this.cards[j] = tempi;
-                 }
-
-                 return this;
-            }
-
-            Deck.prototype.reverse = function(){
-                  this.cards.reverse();
-            }
-
-            Deck.prototype.addToBottom = function(card){
-                deck.cards.unshift(card);
-                delete deck.out.lastIndexOf(card);
-            }
-
-            function Card(suit, number, imagesStartPoint){
-                this.suit     = suit;
-                this.imageURL = "img/cards/" + (imagesStartPoint + Deck.suits.indexOf(suit)) + ".png";
-
-                switch(number){
-                    case 1 : this.rank  = "Ace";
-                             this.value = 11;
-                             break;
-
-                    case 11: this.rank  = "Jack";
-                             this.value = 10;
-                             break;
-
-                    case 12: this.rank  = "Queen";
-                             this.value = 10;
-                             break;
-
-                    case 13: this.rank  = "King";
-                             this.value = 10;
-                             break;
-
-                    default: this.rank  = number;
-                             this.value = number;
-                }
-            }
-
-            var deck = new Deck();
-
-        </script>
-
     </head>
     <body>
-        <input type="button" class="button" value="Reverse" onclick="deck.reverse();"/>
-        <input type="button" class="button" value="Shuffle" onclick="deck.shuffle();"/>
-        <input type="button" class="button" value="Draw card" onclick="deck.draw(1);"/>
+        <input id="reverse-button" type="button" class="button" value="Reverse" />
+        <input id="shuffle-button" type="button" class="button" value="Shuffle" />
+        <input id="draw-button" type="button" class="button" value="Draw card" />
         
-        <div id="table">
+        <div id="table"></div>
 
-        </div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/Deck.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>
