@@ -12,5 +12,5 @@ document.getElementById('draw-button').onclick = function () {
 document.getElementById('draw-all-button').onclick = function () {
 	setInterval(function () {
 		deck.draw(1);
-	}, 100);
+	}, 50);
 };
