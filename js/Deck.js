@@ -7,11 +7,81 @@ function Deck(tableID) {
     this.cards      = [],
     this.drawn      = [];
 
-    for (var i = 1; i <= 13; i++) { // Make 52 cards 
+ 	// Make 52 cards 
+    for (var i = 1; i <= 13; i++) { 
         for (suit in this.suits) {
            this.cards.push(new Card(this.suits[suit], i, cardImagesSuitStartingPoints[i - 1]));
         }
     }
+
+    this.draw = function (numberOfCards) {
+	    var cards = [];
+
+	    for (var i = 0; i < numberOfCards; i++) {
+	        if (this.cards.length === 0) {
+	            break;
+	        }
+
+	        cards[i] = this.cards.pop();
+
+	        this.drawn.push(cards[i]);
+
+	        document.getElementById(this.tableID).appendChild(createCardDiv(cards[i]));
+	    }
+
+	    return cards;
+
+	    function createCardDiv(cardData) {
+	        var divTag   = document.createElement('div');
+	        var imageTag = document.createElement('img');
+	        var nameTag  = document.createElement('div');
+	        var valueTag = document.createElement('div');
+
+	        imageTag.src       = cardData.imageURL;
+	        nameTag.innerHTML  = cardData.rank + " of " + cardData.suit;
+	        valueTag.innerHTML = "(" + cardData.value + ")";
+
+	        imageTag.className  += " card";
+	        nameTag.className   += " cardName";
+	        valueTag.className  += " cardValue";
+	        divTag.className    += " cardHolder";
+
+	        divTag.appendChild(imageTag);
+	        divTag.appendChild(nameTag);
+	        divTag.appendChild(valueTag);
+
+	        return divTag;
+	    }
+	};
+
+	this.shuffle = function () {
+	    var i = this.cards.length, j, tempi, tempj;
+
+	    if (i == 0) {
+	        return false;
+	    }
+
+	    while (--i) {
+	       j = Math.floor(Math.random() * (i + 1));
+
+	       tempi = this.cards[i];
+	       tempj = this.cards[j];
+
+	       this.cards[i] = tempj;
+	       this.cards[j] = tempi;
+	     }
+
+	     return this.cards;
+	};
+
+	this.reverse = function () {
+	      this.cards.reverse();
+	};
+
+	this.addToBottom = function (card) {
+	    deck.cards.unshift(card);
+	    delete deck.drawn.lastIndexOf(card);
+	};
 
     function Card(suit, number, imagesStartPoint) {
         this.suit     = suit;
@@ -39,72 +109,3 @@ function Deck(tableID) {
         }
     }
 }
-
-Deck.prototype.draw = function (numberOfCards) {
-    var cards = [];
-
-    for (var i = 0; i < numberOfCards; i++) {
-        if (this.cards.length === 0) {
-            break;
-        }
-
-        cards[i] = this.cards.pop();
-
-        this.drawn.push(cards[i]);
-
-        document.getElementById(this.tableID).appendChild(createCardDiv(cards[i]));
-    }
-
-    return cards;
-
-    function createCardDiv(cardData) {
-        var divTag   = document.createElement('div');
-        var imageTag = document.createElement('img');
-        var nameTag  = document.createElement('div');
-        var valueTag = document.createElement('div');
-
-        imageTag.src       = cardData.imageURL;
-        nameTag.innerHTML  = cardData.rank + " of " + cardData.suit;
-        valueTag.innerHTML = "(" + cardData.value + ")";
-
-        imageTag.className  += " card";
-        nameTag.className   += " cardName";
-        valueTag.className  += " cardValue";
-        divTag.className    += " cardHolder";
-
-        divTag.appendChild(imageTag);
-        divTag.appendChild(nameTag);
-        divTag.appendChild(valueTag);
-
-        return divTag;
-    }
-};
-
-Deck.prototype.shuffle = function () {
-    var i = this.cards.length, j, tempi, tempj;
-
-    if (i == 0) {
-        return false;
-    }
-
-    while (--i) {
-       j = Math.floor(Math.random() * (i + 1));
-
-       tempi = this.cards[i];
-       tempj = this.cards[j];
-
-       this.cards[i] = tempj;
-       this.cards[j] = tempi;
-     }
-
-     return this.cards;
-};
-
-Deck.prototype.reverse = function () {
-      this.cards.reverse();
-};
-
-Deck.prototype.addToBottom = function (card) {
-    deck.cards.unshift(card);
-    delete deck.drawn.lastIndexOf(card);
-};
