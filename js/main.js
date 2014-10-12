@@ -9,3 +9,8 @@ document.getElementById('reverse-button').onclick = function () {
 document.getElementById('draw-button').onclick = function () {
 	deck.draw(1);
 };
+document.getElementById('draw-all-button').onclick = function () {
+	setInterval(function () {
+		deck.draw(1);
+	}, 100);
+};
