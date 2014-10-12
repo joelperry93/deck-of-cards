@@ -10,7 +10,9 @@ document.getElementById('draw-button').onclick = function () {
 	deck.draw(1);
 };
 document.getElementById('draw-all-button').onclick = function () {
-	setInterval(function () {
-		deck.draw(1);
+	var interval = setInterval(function () {
+		if (!deck.draw(1)) {
+			clearInterval(interval);
+		}
 	}, 50);
 };

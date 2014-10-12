@@ -19,7 +19,7 @@ function Deck(options) {
 
 	    for (var i = 0; i < numberOfCards; i++) {
 	        if (this.cards.length === 0) {
-	            break;
+	            return false;
 	        }
 
 	        cards[i] = this.cards.pop();
