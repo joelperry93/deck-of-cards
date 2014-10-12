@@ -1,7 +1,7 @@
-function Deck(tableID) {
+function Deck(options) {
     var deck = this, cardImagesSuitStartingPoints = [1,49,45,41,37,33,29,25,21,17,13,9,5] /// Where rank cards start in the images folder. 1.png = Aces, 49.png = 2s.. etc.
     
-    this.tableID    = tableID;
+    this.tableID    = options.containerId;
     this.suits      = ['Clubs', 'Spades', 'Hearts', 'Diamonds'], // In order with image folder
     this.imageURL   = "img/cards/face-down.png",
     this.cards      = [],
@@ -9,7 +9,7 @@ function Deck(tableID) {
 
  	// Make 52 cards 
     for (var i = 1; i <= 13; i++) { 
-        for (suit in this.suits) {
+        for (var suit in this.suits) {
            this.cards.push(new Card(this.suits[suit], i, cardImagesSuitStartingPoints[i - 1]));
         }
     }

@@ -1,4 +1,4 @@
-var deck = new Deck('table');
+var deck = new Deck({ containerId : 'table' });
 
 document.getElementById('shuffle-button').onclick = function () {
 	deck.shuffle();	
