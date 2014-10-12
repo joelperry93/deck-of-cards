@@ -1,19 +1,19 @@
-.cardHolder{
+.cardHolder {
 	width:200px;
 	margin-top:12px;
 	float:left;
 }
-.cardValue{
+.cardValue {
     color:red;
     margin-left:5px;
     clear:both;
     text-align:center;
 }
-.cardName{
+.cardName {
     margin-left:5px;
     text-align:center;
 }
-.card{
+.card {
     margin-top:5px;
    	width:80px;
    	margin-left:auto;
