@@ -7,14 +7,15 @@ function Deck(options) {
     this.cards      = [],
     this.drawn      = [];
 
- 	// Make 52 cards 
-    for (var i = 1; i <= 13; i++) { 
-        for (var suit in this.suits) {
-           this.cards.push(new Card(this.suits[suit], i, cardImagesSuitStartingPoints[i - 1]));
-        }
-    }
+ 	this.makeCards = function () {
+	    for (var i = 1; i <= 13; i++) { 
+	        for (var suit in this.suits) {
+	           this.cards.push(new Card(this.suits[suit], i, cardImagesSuitStartingPoints[i - 1]));
+	        }
+	    }
+	}
     
-    this.draw = function (numberOfCards) {
+ 	this.draw = function (numberOfCards) {
 	    var cards = [];
 
 	    for (var i = 0; i < numberOfCards; i++) {
@@ -75,20 +76,32 @@ function Deck(options) {
 	};
 
 	this.reverse = function () {
-	      this.cards.reverse();
+	    this.cards.reverse();
+		return this;
 	};
 
-	this.reset = function() {
-		this.cards = [];
-		this.drawn = [];
+	this.destroy = function () {
 		document.getElementById(this.tableID).innerHTML = '';
-		console.log(this);
 		delete this;
 	};
 
 	this.addToBottom = function (card) {
 	    deck.cards.unshift(card);
-	    delete deck.drawn.lastIndexOf(card);
+	    delete deck.drawn[deck.drawn.lastIndexOf(card)];
+	    return this;
+	};
+
+	this.drawAll = function () {
+		if (options.drawTimeInterval) {
+			var intervalId = setInterval(function () {
+				if (!deck.draw(1)) {
+					clearInterval(intervalId);
+				}
+			}, options.drawTimeInterval);
+		}
+		else {
+			deck.draw(deck.cards.length);
+		}
 	};
 
     function Card(suit, number, imagesStartPoint) {
@@ -96,24 +109,31 @@ function Deck(options) {
         this.imageURL = "img/cards/" + (imagesStartPoint + deck.suits.indexOf(suit)) + ".png";
 
         switch (number) {
-            case 1 : this.rank  = "Ace";
-                     this.value = 11;
-                     break;
+            case 1: 
+            	this.rank  = "Ace";
+                this.value = 11;
+              	break;
 
-            case 11: this.rank  = "Jack";
-                     this.value = 10;
-                     break;
+            case 11: 
+            	this.rank  = "Jack";
+                this.value = 10;
+                break;
 
-            case 12: this.rank  = "Queen";
-                     this.value = 10;
-                     break;
+            case 12: 
+            	this.rank  = "Queen";
+                this.value = 10;
+      		    break;
 
-            case 13: this.rank  = "King";
-                     this.value = 10;
-                     break;
+            case 13: 
+            	this.rank  = "King";
+            	this.value = 10;
+                break;
 
-            default: this.rank  = number;
-                     this.value = number;
+            default: 
+            	this.rank  = number;
+                this.value = number;
         }
     }
+
+    this.makeCards();
 }

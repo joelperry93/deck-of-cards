@@ -1,4 +1,10 @@
-var deck = new Deck({ containerId : 'table' });
+var options = { 
+	containerId 		: 'table', 
+	drawTimeInterval 	: 50
+};
+
+var deck = new Deck(options);
+
 
 document.getElementById('shuffle-button').onclick = function () {
 	deck.shuffle();	
@@ -10,14 +16,9 @@ document.getElementById('draw-button').onclick = function () {
 	deck.draw(1);
 };
 document.getElementById('draw-all-button').onclick = function () {
-	var interval = setInterval(function () {
-		if (!deck.draw(1)) {
-			clearInterval(interval);
-		}
-	}, 50);
+	deck.drawAll();
 };
-
-document.getElementById('reset-deck').onclick = function() {
-	deck.reset();
-	deck = new Deck({ containerId : 'table' });
-}
+document.getElementById('reset-deck').onclick = function () {
+	deck.destroy();
+	deck = new Deck(options);
+};
