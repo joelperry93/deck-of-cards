@@ -16,3 +16,8 @@ document.getElementById('draw-all-button').onclick = function () {
 		}
 	}, 50);
 };
+
+document.getElementById('reset-deck').onclick = function() {
+	deck.reset();
+	deck = new Deck({ containerId : 'table' });
+}
