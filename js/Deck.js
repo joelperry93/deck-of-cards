@@ -13,7 +13,7 @@ function Deck(options) {
            this.cards.push(new Card(this.suits[suit], i, cardImagesSuitStartingPoints[i - 1]));
         }
     }
-
+    
     this.draw = function (numberOfCards) {
 	    var cards = [];
 
@@ -76,6 +76,14 @@ function Deck(options) {
 
 	this.reverse = function () {
 	      this.cards.reverse();
+	};
+
+	this.reset = function() {
+		this.cards = [];
+		this.drawn = [];
+		document.getElementById(this.tableID).innerHTML = '';
+		console.log(this);
+		delete this;
 	};
 
 	this.addToBottom = function (card) {
